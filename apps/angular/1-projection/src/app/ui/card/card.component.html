@@ -1,0 +1,12 @@
+<div class="flex w-fit flex-col gap-3 rounded-md border-2 border-black p-4" [class]="customClass()">
+  <!-- Contéudo da imagem -->
+  <ng-content select="[slot=image]"></ng-content>
+
+  <!-- Contéudo da lista -->
+  @for (item of data(); track item) {
+    <app-list-item [data]="item" [type]="cardType()"></app-list-item>
+  }
+
+  <!-- Conteúdo do botão -->
+  <ng-content select="slot=button"></ng-content>
+</div>

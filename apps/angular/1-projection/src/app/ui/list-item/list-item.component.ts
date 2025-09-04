@@ -12,8 +12,12 @@ import { CardType } from '../../model/card.model';
   selector: 'app-list-item',
   template: `
     <div class="border-grey-300 flex justify-between border px-2 py-1">
-      {{ name() }}
-      <button (click)="delete(id())">
+      @if (type() === CardType.CITY) {
+        {{ data().name }}
+      } @else {
+        {{ data().firstName }}
+      }
+      <button (click)="delete(data().id)">
         <img class="h-5" src="assets/svg/trash.svg" />
       </button>
     </div>
@@ -24,9 +28,10 @@ export class ListItemComponent {
   private teacherStore = inject(TeacherStore);
   private studentStore = inject(StudentStore);
 
-  readonly id = input.required<number>();
-  readonly name = input.required<string>();
   readonly type = input.required<CardType>();
+  readonly data = input.required<any>();
+
+  readonly CardType = CardType;
 
   delete(id: number) {
     const type = this.type();
